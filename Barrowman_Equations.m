@@ -26,7 +26,7 @@ CnalfaBody = 2.2 * lTubo; % As the reference area is equal to the diameter,
 Cnalfat = ((4 * N * (span / Lr) ^ 2) / (1 + sqrt(1 + (2 * Lf / (Cr + Ct)) ^ 2))) * (1 + rt / (span + rt));
 Cnalfat = Cnalfat * (1 + r0/(span + r0)); %interference factor
 
-%Condition for rockets withot tail; and tail center od pressure
+%Condition for rockets withot tail; and tail center of pressure
 %calculations
 if r2 ~= 0
     r=rt/r2;
