@@ -1,60 +1,60 @@
-%Entrada de dados
-%Parâmetros de referência e condições de contorno
-Lr = 127/1000; % comprimento de referência
-Ar = pi * (Lr^2) / 4; % área de referênciap
+%Data input
+%Reference parameters and boundary conditions
+Lr = 127/1000; % reference length
+Ar = pi * (Lr^2) / 4; % reference areap
         
-%Parâmetros da ogiva
-logiva = -558.29/1000; % comprimento da ogiva
-r0 = 127 / 2000; % raio na ogiva
-Vb = 0.004253; %volume da ogiva
+%Warhead parameters
+logiva = -558.29/1000; % warhead length
+r0 = 127 / 2000; % radius on warhead
+Vb = 0.004253; %warhead volume
 
-%Parâmetros da fuselagem
-rt = 127 / 2000; % raio na cauda
-l0 = -2.528; % comprimento do foguete
-lTubo = l0 - logiva; % comprimento apenas de fuselagem
-x_cg = -1.278; % posição do centro de massa medido da ogiva
-Rs = 40/1000000; % Rugosidade RMC
+%Fuselage parameters
+rt = 127 / 2000; % radius in tail
+l0 = -2.528; % rocket length
+lTube = l0 - logiva; % length of fuselage only
+x_cg = -1.278; % position of the measured center of mass of the warhead
+Rs = 40/1000000; % RMC Roughness
 
-%parâmetros das aletas
+%fin parameters
 Cr = 120 / 1000;
 Ct = 40 / 1000;
-span = 100 / 1000; 
-pos_aletas = -2.367; % posição das aletas medido da ogiva
-N = 4; % número de aletas
-delta = degtorad(2); % valor de inclinação das aletas fixas
+span = 100 / 1000;
+pos_aletas = -2,367; % fin position measured from the warhead
+N = 4; % number of fins
+delta = degtorad(2); % inclination value of fixed fins
 
-%Parâmetros da Cauda
-h = 60 / 1000; % comprimento da cauda
-r2 = 43.5 / 1000; % menor raio da cauda
-pos_tail = l0; % posição da cauda medida da ogiva
+%Tail Parameters
+h = 60 / 1000; % tail length
+r2 = 43.5 / 1000; % smallest tail radius
+pos_tail = l0; % measured tail position of warhead
 
-% Canards set 
+% Canards set
 N_canard = 4;
 Cr_canard = 40 / 1000;
-Ct_canard = 40 / 1000; %O tip é do tamanho do root para aproveitar que quanto mais longe do foguete, maior é o braço do momento
+Ct_canard = 40 / 1000; %The tip is the size of the root to take advantage of the fact that the further away from the rocket, the greater the moment arm
 span_canard = 80 / 1000;
-arm_canard = 10/1000; % Braço entre a aleta e a fuselagem
-alfa_canard = degtorad(0); % angulo de ataque máximo para as canards
+arm_canard = 10/1000; % Arm between fin and fuselage
+alfa_canard = degtorad(0); % maximum angle of attack for canards
 %pos_canard = -(558.29 + 40)/1000;
 pos_canard=x_cg;
 
-%Entradas pro Simulink
-mcarregado = 18.48;
-mdescarregado = 15.576;
-MatrizDeInercia = [0.03616 0 0; 0 8.458 0; 0 0 8.457];
-MatrizDeInerciaDescarregado = [0.034 0 0; 0 6.839 0; 0 0 6.838];
-F = readtable('../Data/Comercial/Pro75M3100_saida_do_trilho.csv'); 
+%Pro Simulink inputs
+mloaded = 18.48;
+munloaded = 15.576;
+InertiaMatrix = [0.03616 0 0; 0 8,458 0; 0 0 8,457];
+UnloadedInertiaMatrix = [0.034 0 0; 0 6,839 0; 0 0 6,838];
+F = readtable('../Data/Commercial/Pro75M3100_out_of_trilho.csv');
 F_array = table2array(F);
-F_input = F{:, 1};
-F_data = F{:, 2};
+F_input = F{:,1};
+F_data = F{:,2};
 % Mdot
-MDot = readtable('../Data/Comercial/cesaroni_wt_mdot.csv');
-MDot_array= table2array(MDot);
-MDot_input = MDot{:, 1};
-MDot_data = MDot{:, 2};
-V_Exhaust = 1168.09;               % SOURCE: PROPULSION TR LASC 2020
+MDot = readtable('../Data/Commercial/cesaroni_wt_mdot.csv');
+MDot_array = table2array(MDot);
+MDot_input = MDot{:,1};
+MDot_data = MDot{:,2};
+V_Exhaust = 1168.09; % SOURCE: LASC 2020 TR PROPULSION
 
 CD = readtable('../Data/Novo_CD.csv');
 CD_array = table2array(CD);
-CD_input = CD{:, 1};
-CD_data = CD{:, 2};
+CD_input = CD{:,1};
+CD_data = CD{:,2};
